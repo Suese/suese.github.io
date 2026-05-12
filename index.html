@@ -833,6 +833,7 @@
 <script>
 (function(){
   const DISCORD_USER_ID = '277647468307546112';
+  const DISCORD_INVITE  = 'https://discord.gg/RcE9vCNPfM';
   if (!/^\d{15,21}$/.test(DISCORD_USER_ID)) return;
 
   const labelMap   = {online:'ONLINE', idle:'IDLE', dnd:'DO NOT DISTURB', offline:'OFFLINE'};
@@ -858,8 +859,14 @@
         if (lbl) lbl.textContent = labelMap[status] || 'UNKNOWN';
       });
       if (statRow) {
-        statRow.textContent = '● ' + (labelMap[status] || 'UNKNOWN');
-        statRow.style.color = colorMap[status] || '#8a90b8';
+        const label = '● ' + (labelMap[status] || 'UNKNOWN');
+        const color = colorMap[status] || '#8a90b8';
+        if (status === 'online') {
+          statRow.innerHTML = '<a href="' + DISCORD_INVITE + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(0,255,156,.5);text-underline-offset:3px">' + label + ' · JOIN ▶</a>';
+        } else {
+          statRow.textContent = label;
+        }
+        statRow.style.color = color;
       }
 
       // Activities — Discord activity types: 0=playing, 1=streaming, 2=listening, 3=watching, 4=custom, 5=competing
