@@ -1,0 +1,101 @@
+================================================================
+DAN McKINNON // ULTRA EDITION — Asset & Copy Checklist
+================================================================
+Drop the files into /images/ exactly as named below. Copy goes
+straight into index.html at the marked spots.
+
+----------------------------------------------------------------
+IMAGES TO PROVIDE
+----------------------------------------------------------------
+
+[ ] images/dan.jpg
+    • Hero portrait of you (face shot, action shot, or fun props
+      — anything that reads well at ~500x550). Square-ish to
+      slightly-tall works best.
+    • Recommended: ~1000x1100, JPG or PNG. <500KB ideal.
+    • Bright/vibrant photos suit the RGB aesthetic; over-the-top
+      lighting is on-brand.
+
+[ ] images/ten-thousand.jpg
+    • Screenshot of Ten Thousand mid-game.
+    • Recommended: 1600x900 (16:9). Show the dice + a player or
+      two in the lobby. <400KB ideal.
+
+[ ] images/cs2board.jpg
+    • Screenshot of the CS2 Whiteboard with stuff drawn on it.
+    • Recommended: 1600x900 (16:9). A messy, marked-up map looks
+      way better than an empty canvas. <400KB ideal.
+
+[ ] (Optional) images/favicon.png  — 32x32 site icon. Not yet
+    wired in; ping Claude to add a <link rel="icon"> when ready.
+
+----------------------------------------------------------------
+COPY TO PROVIDE (paste into index.html)
+----------------------------------------------------------------
+
+[ ] HERO BIO LINE
+    File:  index.html
+    Find:  [ HERO BIO LINE — one knockout sentence. ]
+    What:  One single, over-the-top sentence. Think GPU-box tagline:
+           "The most overclocked game brain on the West Coast."
+
+[ ] FULL BIO
+    File:  index.html
+    Find:  [ FULL BIO — paste the over-the-top ChatGPT bio here. ... ]
+    What:  Two or three short paragraphs of unhinged marketing-copy
+           bio. Lean into "FOUNDERS EDITION / ULTRA / RGB" energy.
+           Mention shipping experience, multiplayer focus, what
+           you love building. Keep it punchy — readers skim.
+
+[ ] (Optional) Tweak SYSTEM STATS
+    File:  index.html
+    Find:  <div class="stats">
+    What:  Update the right-hand spec rows if you want different
+           values (Role / Cores / Stack / Mode / Status / Region).
+
+----------------------------------------------------------------
+LINKS TO CONFIRM / REPLACE
+----------------------------------------------------------------
+
+[ ] DISCORD INVITE URL
+    File:  index.html
+    Find:  DISCORD_INVITE_URL_HERE
+    What:  Replace with your permanent Discord server invite link
+           (https://discord.gg/xxxxxxx). The placeholder will 404
+           until you do.
+
+[ ] LinkedIn URL
+    File:  index.html
+    Current: https://www.linkedin.com/in/dan-mckinnon
+    What:    Confirm this is your canonical profile URL. If your
+             vanity slug differs, swap it in.
+
+[ ] GitHub URL
+    File:  index.html
+    Current: https://github.com/suese
+    What:    Confirm. (Repo is "suese.github.io" so this was the
+             best guess — change if you use a different handle.)
+
+----------------------------------------------------------------
+OPTIONAL POLISH
+----------------------------------------------------------------
+
+[ ] Favicon (see images section above)
+[ ] Open Graph image (1200x630) for nice link previews on
+    LinkedIn / Discord / etc. Drop at images/og.jpg and ask
+    Claude to wire up the <meta property="og:image"> tags.
+[ ] Extra projects? The "Latest Builds" grid is built to accept
+    more <article class="project"> blocks — just duplicate one
+    and add a new .shot.something background.
+
+----------------------------------------------------------------
+HOW TO PREVIEW LOCALLY
+----------------------------------------------------------------
+From the repo root, run any static server. Easiest:
+
+    python3 -m http.server 8000
+
+Then open http://localhost:8000 in your browser.
+
+GitHub Pages will pick up the changes automatically once you
+push to main — same as before.

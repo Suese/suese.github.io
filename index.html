@@ -1,28 +1,649 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <style>
-    .libutton {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 7px;
-      text-align: center;
-      outline: none;
-      text-decoration: none !important;
-      color: #ffffff !important;
-      width: 200px;
-      height: 32px;
-      border-radius: 16px;
-      background-color: #0A66C2;
-      font-family: "SF Pro Text", Helvetica, sans-serif;
-    }
-  </style>
-  <title>Dan McKinnon</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAN McKINNON // ULTRA EDITION</title>
+<meta name="description" content="Dan McKinnon — Game Designer & Programmer. Creator of Ten Thousand and the CS2 Whiteboard.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#05060d;
+    --bg-1:#0a0c1a;
+    --bg-2:#10142b;
+    --ink:#e8ecff;
+    --muted:#8a90b8;
+    --cyan:#00f0ff;
+    --magenta:#ff2bd6;
+    --green:#00ff9c;
+    --yellow:#ffe600;
+    --red:#ff3366;
+    --purple:#7b2ff7;
+    --orange:#ff8a00;
+    --rgb-grad:linear-gradient(90deg,#ff0040,#ff8a00,#ffe600,#00ff9c,#00f0ff,#7b2ff7,#ff2bd6,#ff0040);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-0);color:var(--ink);font-family:'Rajdhani',system-ui,sans-serif;overflow-x:hidden}
+  body{
+    background:
+      radial-gradient(ellipse at 20% -10%, rgba(123,47,247,.28), transparent 50%),
+      radial-gradient(ellipse at 90% 10%, rgba(0,240,255,.18), transparent 50%),
+      radial-gradient(ellipse at 50% 90%, rgba(255,43,214,.18), transparent 50%),
+      var(--bg-0);
+    min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+
+  /* ===== Animated scan-grid backdrop ===== */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(rgba(0,240,255,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,240,255,.05) 1px,transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(ellipse at center, #000 50%, transparent 100%);
+    pointer-events:none;
+    z-index:0;
+    animation:gridShift 18s linear infinite;
+  }
+  @keyframes gridShift{
+    0%{background-position:0 0,0 0}
+    100%{background-position:48px 48px,48px 48px}
+  }
+
+  /* ===== Ticker (the animated banner) ===== */
+  .ticker{
+    position:relative;z-index:5;
+    height:38px;overflow:hidden;
+    background:#000;
+    border-top:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    box-shadow:0 0 30px rgba(0,240,255,.15);
+  }
+  .ticker::before,.ticker::after{
+    content:"";position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
+  }
+  .ticker::before{left:0;background:linear-gradient(90deg,#000,transparent)}
+  .ticker::after{right:0;background:linear-gradient(-90deg,#000,transparent)}
+  .ticker-track{
+    display:flex;gap:48px;
+    white-space:nowrap;
+    height:100%;align-items:center;
+    width:max-content;
+    animation:tickerScroll 38s linear infinite;
+    font-family:'Orbitron',sans-serif;
+    font-weight:700;letter-spacing:.18em;font-size:13px;
+  }
+  .ticker-track span{display:inline-flex;align-items:center;gap:14px}
+  .ticker-track .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--cyan);box-shadow:0 0 12px var(--cyan);
+  }
+  .ticker-track .c1{color:var(--cyan)}
+  .ticker-track .c2{color:var(--magenta)}
+  .ticker-track .c3{color:var(--green)}
+  .ticker-track .c4{color:var(--yellow)}
+  .ticker-track .c5{color:var(--orange)}
+  @keyframes tickerScroll{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+  }
+
+  /* RGB rainbow strip directly under ticker */
+  .rgb-strip{
+    height:3px;background:var(--rgb-grad);background-size:200% 100%;
+    animation:rgbSlide 6s linear infinite;
+    box-shadow:0 0 18px rgba(255,43,214,.35);
+    position:relative;z-index:5;
+  }
+  @keyframes rgbSlide{
+    from{background-position:0 0}
+    to{background-position:200% 0}
+  }
+
+  /* ===== Header ===== */
+  header{
+    position:relative;z-index:4;
+    padding:18px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+    backdrop-filter:blur(6px);
+  }
+  .logo{
+    font-family:'Orbitron',sans-serif;font-weight:900;font-size:18px;letter-spacing:.22em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .logo .mark{
+    width:22px;height:22px;
+    background:var(--rgb-grad);background-size:200% 100%;
+    clip-path:polygon(50% 0,100% 35%,80% 100%,20% 100%,0 35%);
+    animation:rgbSlide 4s linear infinite;
+    box-shadow:0 0 14px rgba(0,240,255,.6);
+  }
+  .logo b{color:var(--cyan)}
+  nav{display:flex;gap:6px;font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:.22em;font-weight:700}
+  nav a{
+    padding:8px 14px;border:1px solid rgba(255,255,255,.1);
+    color:var(--muted);transition:.2s;
+    clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+  }
+  nav a:hover{color:#fff;border-color:var(--cyan);box-shadow:0 0 18px rgba(0,240,255,.4) inset;background:rgba(0,240,255,.08)}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;z-index:3;
+    padding:40px 32px 70px;
+    display:grid;grid-template-columns:1.3fr .9fr;gap:40px;align-items:center;
+    max-width:1280px;margin:0 auto;
+  }
+  .hero-text{position:relative}
+  .badge{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:6px 14px;
+    font-family:'Orbitron',sans-serif;font-weight:700;font-size:11px;letter-spacing:.3em;
+    color:#000;background:var(--rgb-grad);background-size:300% 100%;
+    animation:rgbSlide 5s linear infinite;
+    clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+    box-shadow:0 0 30px rgba(255,43,214,.5);
+    margin-bottom:18px;
+  }
+  .badge::before{content:"▲";font-size:14px}
+  h1.title{
+    font-family:'Orbitron',sans-serif;font-weight:900;
+    font-size:clamp(56px,9vw,128px);
+    line-height:.88;letter-spacing:-.02em;
+    text-transform:uppercase;
+    background:linear-gradient(180deg,#fff 0%,#fff 55%,#9aa3d6 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 60px rgba(0,240,255,.15);
+    position:relative;
+  }
+  h1.title .accent{
+    background:var(--rgb-grad);background-size:300% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:rgbSlide 6s linear infinite;
+    filter:drop-shadow(0 0 18px rgba(255,43,214,.5));
+  }
+  .role{
+    margin-top:14px;
+    font-family:'Orbitron',sans-serif;font-weight:500;letter-spacing:.32em;font-size:14px;color:var(--cyan);
+    text-shadow:0 0 18px rgba(0,240,255,.6);
+  }
+  .role .sep{color:var(--magenta);margin:0 10px;text-shadow:0 0 18px rgba(255,43,214,.6)}
+  .hero-tags{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;
+  }
+  .tag{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;
+    padding:6px 12px;border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.03);
+    color:var(--muted);
+  }
+  .tag.t1{color:var(--cyan);border-color:rgba(0,240,255,.4);box-shadow:0 0 16px rgba(0,240,255,.15) inset}
+  .tag.t2{color:var(--magenta);border-color:rgba(255,43,214,.4);box-shadow:0 0 16px rgba(255,43,214,.15) inset}
+  .tag.t3{color:var(--green);border-color:rgba(0,255,156,.4);box-shadow:0 0 16px rgba(0,255,156,.15) inset}
+  .tag.t4{color:var(--yellow);border-color:rgba(255,230,0,.4);box-shadow:0 0 16px rgba(255,230,0,.15) inset}
+
+  /* Portrait card */
+  .portrait{
+    position:relative;
+    aspect-ratio:1/1.1;
+    padding:6px;
+    background:var(--rgb-grad);background-size:300% 100%;
+    animation:rgbSlide 7s linear infinite;
+    clip-path:polygon(24px 0,100% 0,100% calc(100% - 24px),calc(100% - 24px) 100%,0 100%,0 24px);
+    box-shadow:0 30px 80px rgba(123,47,247,.4),0 0 80px rgba(0,240,255,.2);
+  }
+  .portrait-inner{
+    width:100%;height:100%;
+    background:var(--bg-1) center/cover no-repeat;
+    background-image:linear-gradient(135deg,rgba(123,47,247,.4),rgba(0,240,255,.2)),url('images/dan.jpg');
+    clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px);
+    position:relative;
+    display:flex;align-items:flex-end;justify-content:flex-start;
+    padding:18px;
+  }
+  .portrait-inner::before{
+    content:"NO IMAGE PROVIDED · see todo.txt";
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.4);
+    text-align:center;padding:20px;
+  }
+  .portrait-meta{
+    position:relative;z-index:2;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:#fff;
+    text-shadow:0 1px 4px #000;
+    display:flex;flex-direction:column;gap:2px;
+  }
+  .portrait-meta .id{color:var(--cyan)}
+
+  /* ===== Specs (Bio) ===== */
+  section{position:relative;z-index:2}
+  .section-head{
+    max-width:1280px;margin:0 auto;padding:0 32px 18px;
+    display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  }
+  .section-head h2{
+    font-family:'Orbitron',sans-serif;font-weight:900;letter-spacing:.18em;
+    font-size:clamp(28px,3.4vw,42px);
+    text-transform:uppercase;
+    background:var(--rgb-grad);background-size:300% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:rgbSlide 8s linear infinite;
+  }
+  .section-head .kicker{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:var(--muted);
+    border:1px solid rgba(255,255,255,.1);padding:4px 10px;white-space:nowrap;
+  }
+
+  .specs{
+    max-width:1280px;margin:0 auto;padding:24px 32px 80px;
+    display:grid;grid-template-columns:1.6fr 1fr;gap:24px;
+  }
+  .panel{
+    position:relative;
+    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+    border:1px solid rgba(255,255,255,.08);
+    padding:28px;
+    overflow:hidden;
+  }
+  .panel::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+    background:var(--rgb-grad);background-size:100% 300%;
+    animation:rgbSlideV 6s linear infinite;
+  }
+  @keyframes rgbSlideV{from{background-position:0 0}to{background-position:0 300%}}
+  .panel h3{
+    font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:.22em;font-size:13px;
+    color:var(--cyan);margin-bottom:14px;text-transform:uppercase;
+  }
+  .panel.bio p{
+    font-size:18px;line-height:1.55;color:#cdd2f5;
+    font-weight:400;
+  }
+  .panel.bio .lead{
+    font-size:22px;color:#fff;margin-bottom:12px;font-weight:500;
+  }
+  .panel.bio .placeholder{
+    margin-top:18px;padding:14px;border:1px dashed rgba(255,230,0,.4);
+    background:rgba(255,230,0,.04);
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow);
+    letter-spacing:.08em;line-height:1.5;
+  }
+  .stats{display:flex;flex-direction:column;gap:14px}
+  .stat-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 14px;
+    background:rgba(255,255,255,.02);
+    border:1px solid rgba(255,255,255,.06);
+    font-family:'JetBrains Mono',monospace;
+  }
+  .stat-row .k{font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  .stat-row .v{font-size:14px;font-weight:700;color:#fff;letter-spacing:.05em}
+  .stat-row .v.c1{color:var(--cyan)}
+  .stat-row .v.c2{color:var(--magenta)}
+  .stat-row .v.c3{color:var(--green)}
+  .stat-row .v.c4{color:var(--yellow)}
+
+  /* ===== Projects ===== */
+  .projects-wrap{
+    max-width:1280px;margin:0 auto;padding:24px 32px 80px;
+    display:grid;grid-template-columns:1fr 1fr;gap:28px;
+  }
+  .project{
+    position:relative;
+    background:var(--bg-1);
+    padding:4px;
+    clip-path:polygon(28px 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%,0 28px);
+    transition:transform .3s ease;
+  }
+  .project::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:conic-gradient(from var(--ang,0deg),
+      var(--cyan),var(--magenta),var(--purple),var(--green),var(--yellow),var(--orange),var(--cyan));
+    filter:blur(0);
+    animation:spin 8s linear infinite;
+  }
+  .project:nth-child(2)::before{animation-duration:11s;animation-direction:reverse}
+  @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+  @keyframes spin{from{--ang:0deg}to{--ang:360deg}}
+  .project-card{
+    position:relative;z-index:1;
+    background:linear-gradient(180deg,var(--bg-2),var(--bg-1));
+    clip-path:polygon(26px 0,100% 0,100% calc(100% - 26px),calc(100% - 26px) 100%,0 100%,0 26px);
+    padding:24px;
+    display:flex;flex-direction:column;gap:18px;
+    min-height:100%;
+  }
+  .project:hover{transform:translateY(-6px)}
+  .shot{
+    aspect-ratio:16/9;
+    background:#000 center/cover no-repeat;
+    border:1px solid rgba(255,255,255,.08);
+    position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .shot::after{
+    content:"SCREENSHOT PENDING";
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.25em;color:rgba(255,255,255,.4);
+  }
+  .shot.has-img::after{display:none}
+  .shot.ten{background-image:linear-gradient(135deg,rgba(255,43,214,.3),rgba(255,230,0,.2)),url('images/ten-thousand.jpg')}
+  .shot.cs2{background-image:linear-gradient(135deg,rgba(0,240,255,.3),rgba(0,255,156,.2)),url('images/cs2board.jpg')}
+  .project-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .project-head h3{
+    font-family:'Orbitron',sans-serif;font-weight:900;font-size:28px;letter-spacing:.04em;
+    text-transform:uppercase;line-height:1;
+  }
+  .project-head .chip{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;
+    padding:5px 9px;
+    color:#000;background:var(--green);
+    text-transform:uppercase;font-weight:700;white-space:nowrap;
+    box-shadow:0 0 16px rgba(0,255,156,.5);
+  }
+  .project-head .chip.live{background:var(--green);color:#000}
+  .project p.desc{color:#bcc1ed;font-size:15px;line-height:1.5}
+  .feature-pills{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;
+    padding:5px 10px;border:1px solid rgba(255,255,255,.12);color:#a8aedb;
+    text-transform:uppercase;
+  }
+  .launch{
+    margin-top:auto;align-self:flex-start;
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:.22em;font-size:13px;
+    padding:12px 22px;
+    background:#000;color:#fff;
+    border:1px solid var(--cyan);
+    position:relative;overflow:hidden;
+    transition:.2s;
+  }
+  .launch::before{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:var(--rgb-grad);background-size:300% 100%;
+    animation:rgbSlide 4s linear infinite;
+    opacity:0;transition:opacity .3s;
+  }
+  .launch:hover{color:#000;border-color:transparent;transform:translateX(4px)}
+  .launch:hover::before{opacity:1}
+  .launch .arrow{font-size:14px}
+
+  /* ===== Connect ===== */
+  .connect-wrap{
+    max-width:1280px;margin:0 auto;padding:24px 32px 100px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  .social{
+    position:relative;
+    padding:30px 26px;
+    border:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+    display:flex;flex-direction:column;gap:8px;
+    transition:.25s;
+    overflow:hidden;
+    clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px);
+  }
+  .social::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+    background:var(--c,var(--cyan));
+    box-shadow:0 0 24px var(--c,var(--cyan));
+  }
+  .social .icon{
+    width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+    color:var(--c,var(--cyan));
+    border:1px solid var(--c,var(--cyan));
+    box-shadow:0 0 22px rgba(0,240,255,.25) inset;
+    margin-bottom:8px;
+  }
+  .social .icon svg{width:22px;height:22px}
+  .social h4{
+    font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:.22em;font-size:15px;
+    text-transform:uppercase;color:#fff;
+  }
+  .social p{font-size:13px;color:var(--muted);line-height:1.5}
+  .social .go{
+    margin-top:6px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;
+    color:var(--c,var(--cyan));text-transform:uppercase;
+  }
+  .social:hover{transform:translateY(-4px);border-color:var(--c,var(--cyan));box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 40px var(--c-glow,rgba(0,240,255,.25))}
+  .social.linkedin{--c:#00f0ff;--c-glow:rgba(0,240,255,.3)}
+  .social.discord{--c:#7b2ff7;--c-glow:rgba(123,47,247,.4)}
+  .social.discord .icon{box-shadow:0 0 22px rgba(123,47,247,.25) inset}
+  .social.github{--c:#ff2bd6;--c-glow:rgba(255,43,214,.35)}
+  .social.github .icon{box-shadow:0 0 22px rgba(255,43,214,.25) inset}
+
+  /* ===== Footer ===== */
+  footer{
+    position:relative;z-index:2;
+    padding:30px 32px 50px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.06);
+  }
+  footer .foot-rgb{
+    height:2px;width:120px;margin:0 auto 20px;
+    background:var(--rgb-grad);background-size:200% 100%;
+    animation:rgbSlide 5s linear infinite;
+  }
+  footer p{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--muted)}
+  footer p .accent{color:var(--cyan)}
+
+  /* ===== Responsive ===== */
+  @media (max-width: 960px){
+    header{padding:14px 18px}
+    nav{display:none}
+    .hero{grid-template-columns:1fr;padding:24px 18px 50px;gap:30px}
+    .portrait{max-width:380px;margin:0 auto;width:100%}
+    .specs{grid-template-columns:1fr;padding:16px 18px 60px}
+    .projects-wrap{grid-template-columns:1fr;padding:16px 18px 60px}
+    .connect-wrap{grid-template-columns:1fr;padding:16px 18px 80px}
+    .section-head{padding:0 18px 14px}
+    .section-head .kicker{display:none}
+  }
+  @media (max-width: 540px){
+    .logo{font-size:14px;letter-spacing:.18em}
+    .logo .mark{width:18px;height:18px}
+    .badge{font-size:10px;letter-spacing:.22em}
+    h1.title{font-size:clamp(48px,16vw,80px)}
+    .panel{padding:20px}
+    .project-card{padding:18px}
+    .project-head h3{font-size:22px}
+    .ticker-track{font-size:11px;gap:32px}
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  }
+</style>
 </head>
 <body>
-<h1>Dan McKinnon</h1>
-Game Designer & Programmer<br/>
-<a class="libutton" href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=dan-mckinnon" target="_blank">Follow on LinkedIn</a>
-  
+
+<!-- ===== Animated ticker banner ===== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span><i class="dot"></i><b class="c1">ULTRA EDITION</b></span>
+    <span><i class="dot"></i><b class="c2">RGB ENABLED</b></span>
+    <span><i class="dot"></i><b class="c3">MULTIPLAYER READY</b></span>
+    <span><i class="dot"></i><b class="c4">REAL-TIME SYNC</b></span>
+    <span><i class="dot"></i><b class="c5">SHIPS WORLDWIDE</b></span>
+    <span><i class="dot"></i><b class="c1">CRAFTED IN CANADA</b></span>
+    <span><i class="dot"></i><b class="c2">10+ YEARS XP</b></span>
+    <span><i class="dot"></i><b class="c3">OVERCLOCKED</b></span>
+    <span><i class="dot"></i><b class="c4">NOW SHIPPING</b></span>
+    <span><i class="dot"></i><b class="c5">GAME DESIGN × CODE</b></span>
+    <!-- duplicate for seamless loop -->
+    <span><i class="dot"></i><b class="c1">ULTRA EDITION</b></span>
+    <span><i class="dot"></i><b class="c2">RGB ENABLED</b></span>
+    <span><i class="dot"></i><b class="c3">MULTIPLAYER READY</b></span>
+    <span><i class="dot"></i><b class="c4">REAL-TIME SYNC</b></span>
+    <span><i class="dot"></i><b class="c5">SHIPS WORLDWIDE</b></span>
+    <span><i class="dot"></i><b class="c1">CRAFTED IN CANADA</b></span>
+    <span><i class="dot"></i><b class="c2">10+ YEARS XP</b></span>
+    <span><i class="dot"></i><b class="c3">OVERCLOCKED</b></span>
+    <span><i class="dot"></i><b class="c4">NOW SHIPPING</b></span>
+    <span><i class="dot"></i><b class="c5">GAME DESIGN × CODE</b></span>
+  </div>
+</div>
+<div class="rgb-strip"></div>
+
+<!-- ===== Header ===== -->
+<header>
+  <div class="logo"><span class="mark"></span>DAN<b>·</b>McKINNON</div>
+  <nav>
+    <a href="#about">SPECS</a>
+    <a href="#projects">BUILDS</a>
+    <a href="#connect">CONNECT</a>
+  </nav>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="badge">FOUNDERS · ULTRA · LIMITED RUN</div>
+    <h1 class="title">DAN<br><span class="accent">McKINNON</span></h1>
+    <div class="role">GAME DESIGNER <span class="sep">×</span> PROGRAMMER <span class="sep">×</span> MULTIPLAYER NERD</div>
+    <div class="hero-tags">
+      <span class="tag t1">// MULTIPLAYER</span>
+      <span class="tag t2">// REAL-TIME</span>
+      <span class="tag t3">// FULLSTACK</span>
+      <span class="tag t4">// GAME DESIGN</span>
+    </div>
+  </div>
+  <div class="portrait" aria-label="Portrait of Dan McKinnon">
+    <div class="portrait-inner">
+      <div class="portrait-meta">
+        <span class="id">SERIAL · DM-001</span>
+        <span>UNIT · ULTRA EDITION</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Specs / Bio ===== -->
+<section id="about">
+  <div class="section-head">
+    <h2>// Specifications</h2>
+    <span class="kicker">REV · 2026.0</span>
+  </div>
+  <div class="specs">
+    <div class="panel bio">
+      <h3>OPERATOR PROFILE</h3>
+      <p class="lead">[ HERO BIO LINE — one knockout sentence. ]</p>
+      <p>[ FULL BIO — paste the over-the-top ChatGPT bio here. Two or three punchy paragraphs that read like marketing copy from the back of a GPU box. Lean into the hyperbole.]</p>
+      <div class="placeholder">// TODO &nbsp;·&nbsp; replace bracketed copy above with your final bio text (see todo.txt).</div>
+    </div>
+    <div class="panel">
+      <h3>SYSTEM STATS</h3>
+      <div class="stats">
+        <div class="stat-row"><span class="k">Role</span><span class="v c1">GAME DEV</span></div>
+        <div class="stat-row"><span class="k">Cores</span><span class="v c2">DESIGN // CODE</span></div>
+        <div class="stat-row"><span class="k">Stack</span><span class="v c3">WEB // REAL-TIME</span></div>
+        <div class="stat-row"><span class="k">Mode</span><span class="v c4">MULTIPLAYER</span></div>
+        <div class="stat-row"><span class="k">Status</span><span class="v c3">● ONLINE</span></div>
+        <div class="stat-row"><span class="k">Region</span><span class="v c1">CA-WEST</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Projects ===== -->
+<section id="projects">
+  <div class="section-head">
+    <h2>// Latest Builds</h2>
+    <span class="kicker">SHIPPED · LIVE NOW</span>
+  </div>
+  <div class="projects-wrap">
+
+    <article class="project">
+      <div class="project-card">
+        <div class="shot ten" role="img" aria-label="Screenshot of Ten Thousand"></div>
+        <div class="project-head">
+          <h3>Ten Thousand</h3>
+          <span class="chip live">● LIVE</span>
+        </div>
+        <p class="desc">A classic dice-pushing risk game, rebuilt for the browser as a fast, friendly multiplayer hangout. Roll, press your luck, and watch the leaderboard climb in real time.</p>
+        <div class="feature-pills">
+          <span class="pill">MULTIPLAYER</span>
+          <span class="pill">REAL-TIME</span>
+          <span class="pill">DICE</span>
+          <span class="pill">BROWSER</span>
+        </div>
+        <a class="launch" href="https://danmckinnon.net/ten-thousand" target="_blank" rel="noopener">LAUNCH<span class="arrow">▶</span></a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-card">
+        <div class="shot cs2" role="img" aria-label="Screenshot of the CS2 Whiteboard"></div>
+        <div class="project-head">
+          <h3>CS2 Whiteboard</h3>
+          <span class="chip live">● LIVE</span>
+        </div>
+        <p class="desc">A collaborative tactics board for Counter-Strike 2. Draw nades, line up smokes, plan executes — multiple users on the same canvas, no friction, no install.</p>
+        <div class="feature-pills">
+          <span class="pill">MULTI-USER</span>
+          <span class="pill">CANVAS</span>
+          <span class="pill">CS2</span>
+          <span class="pill">TACTICS</span>
+        </div>
+        <a class="launch" href="https://danmckinnon.net/cs2board" target="_blank" rel="noopener">LAUNCH<span class="arrow">▶</span></a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ===== Connect ===== -->
+<section id="connect">
+  <div class="section-head">
+    <h2>// Connect</h2>
+    <span class="kicker">PORTS · OPEN</span>
+  </div>
+  <div class="connect-wrap">
+
+    <a class="social linkedin" href="https://www.linkedin.com/in/dan-mckinnon" target="_blank" rel="noopener">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 .02 5 2.5 2.5 0 0 1-.02-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4V9z"/></svg>
+      </div>
+      <h4>LinkedIn</h4>
+      <p>Career history, references, and the occasional industry rant.</p>
+      <span class="go">VIEW PROFILE ▶</span>
+    </a>
+
+    <a class="social discord" href="DISCORD_INVITE_URL_HERE" target="_blank" rel="noopener">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.07.07 0 0 0-.074.034c-.21.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.51 12.51 0 0 0-.617-1.25.07.07 0 0 0-.074-.033A19.736 19.736 0 0 0 3.687 4.37a.064.064 0 0 0-.03.027C.533 9.045-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.07.07 0 0 0 .076-.027 14.09 14.09 0 0 0 1.226-1.994.07.07 0 0 0-.038-.098 13.1 13.1 0 0 1-1.872-.892.07.07 0 0 1-.007-.117c.126-.094.252-.192.371-.291a.07.07 0 0 1 .073-.01c3.927 1.793 8.18 1.793 12.062 0a.07.07 0 0 1 .074.01c.12.099.245.197.372.291a.07.07 0 0 1-.006.117 12.3 12.3 0 0 1-1.873.892.07.07 0 0 0-.038.099c.36.698.772 1.362 1.225 1.993a.07.07 0 0 0 .077.028 19.84 19.84 0 0 0 6.002-3.03.07.07 0 0 0 .031-.056c.5-5.177-.838-9.674-3.548-13.66a.06.06 0 0 0-.03-.028zM8.02 15.331c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.957-2.418 2.157-2.418 1.21 0 2.176 1.094 2.157 2.418 0 1.334-.956 2.42-2.157 2.42zm7.974 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.418 2.157-2.418 1.21 0 2.176 1.094 2.157 2.418 0 1.334-.946 2.42-2.157 2.42z"/></svg>
+      </div>
+      <h4>Discord</h4>
+      <p>Hang out, playtest, and yell about board games and tactics with the regulars.</p>
+      <span class="go">JOIN SERVER ▶</span>
+    </a>
+
+    <a class="social github" href="https://github.com/suese" target="_blank" rel="noopener">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.636 22.41c.575.106.786-.25.786-.555 0-.273-.01-.998-.016-1.96-3.198.694-3.873-1.541-3.873-1.541-.523-1.328-1.278-1.681-1.278-1.681-1.044-.713.079-.699.079-.699 1.155.081 1.762 1.186 1.762 1.186 1.026 1.758 2.69 1.25 3.345.955.103-.743.402-1.25.73-1.538-2.553-.29-5.238-1.277-5.238-5.682 0-1.255.448-2.281 1.184-3.085-.119-.291-.513-1.462.112-3.05 0 0 .966-.31 3.166 1.18a10.97 10.97 0 0 1 2.882-.388c.978.005 1.964.132 2.882.388 2.198-1.49 3.163-1.18 3.163-1.18.626 1.588.232 2.759.114 3.05.738.804 1.183 1.83 1.183 3.085 0 4.416-2.69 5.388-5.252 5.672.413.355.78 1.057.78 2.13 0 1.538-.014 2.778-.014 3.156 0 .308.208.667.79.554A11.5 11.5 0 0 0 12 .5z"/></svg>
+      </div>
+      <h4>GitHub</h4>
+      <p>Source code, side projects, and the occasional weekend experiment.</p>
+      <span class="go">VIEW CODE ▶</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="foot-rgb"></div>
+  <p>© DAN McKINNON <span class="accent">·</span> ULTRA EDITION <span class="accent">·</span> ALL RIGHTS OVERCLOCKED</p>
+</footer>
+
 </body>
 </html>
