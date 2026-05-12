@@ -105,6 +105,10 @@
     from{background-position:0 0}
     to{background-position:200% 0}
   }
+  @keyframes rgbSlide3{
+    from{background-position:0 0}
+    to{background-position:300% 0}
+  }
 
   /* ===== Header ===== */
   header{
@@ -146,7 +150,7 @@
     padding:6px 14px;
     font-family:'Orbitron',sans-serif;font-weight:700;font-size:11px;letter-spacing:.3em;
     color:#000;background:var(--rgb-grad);background-size:300% 100%;
-    animation:rgbSlide 5s linear infinite;
+    animation:rgbSlide3 5s linear infinite;
     clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
     box-shadow:0 0 30px rgba(255,43,214,.5);
     margin-bottom:18px;
@@ -165,7 +169,7 @@
   h1.title .accent{
     background:var(--rgb-grad);background-size:300% 100%;
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    animation:rgbSlide 6s linear infinite;
+    animation:rgbSlide3 6s linear infinite;
     filter:drop-shadow(0 0 18px rgba(255,43,214,.5));
   }
   .role{
@@ -194,7 +198,7 @@
     aspect-ratio:1/1.1;
     padding:6px;
     background:var(--rgb-grad);background-size:300% 100%;
-    animation:rgbSlide 7s linear infinite;
+    animation:rgbSlide3 7s linear infinite;
     clip-path:polygon(24px 0,100% 0,100% calc(100% - 24px),calc(100% - 24px) 100%,0 100%,0 24px);
     box-shadow:0 30px 80px rgba(123,47,247,.4),0 0 80px rgba(0,240,255,.2);
   }
@@ -234,7 +238,7 @@
     text-transform:uppercase;
     background:var(--rgb-grad);background-size:300% 100%;
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    animation:rgbSlide 8s linear infinite;
+    animation:rgbSlide3 8s linear infinite;
   }
   .section-head .kicker{
     font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:var(--muted);
@@ -369,7 +373,7 @@
   .launch::before{
     content:"";position:absolute;inset:0;z-index:-1;
     background:var(--rgb-grad);background-size:300% 100%;
-    animation:rgbSlide 4s linear infinite;
+    animation:rgbSlide3 4s linear infinite;
     opacity:0;transition:opacity .3s;
   }
   .launch:hover{color:#000;border-color:transparent;transform:translateX(4px)}
