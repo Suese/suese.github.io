@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dan McKinnon // Games, Systems, Tools</title>
-<meta name="description" content="Dan McKinnon — senior software engineer, game developer, systems designer, drummer, teacher, and creator of Ten Thousand and the CS2 Whiteboard.">
+<meta name="description" content="Dan McKinnon — senior software engineer, game developer, systems designer, drummer, teacher, and creator of Ten Thousand, the CS2 Whiteboard, and the Transistor Playground.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -315,6 +315,12 @@
     animation:spin 8s linear infinite;
   }
   .project:nth-child(2)::before{animation-duration:11s;animation-direction:reverse}
+  .project:nth-child(3)::before{animation-duration:14s}
+  .projects-wrap>.project:last-child:nth-child(odd){
+    grid-column:1 / -1;
+    width:calc(50% - 14px);
+    justify-self:center;
+  }
   @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
   @keyframes spin{from{--ang:0deg}to{--ang:360deg}}
   .project-card{
@@ -335,6 +341,7 @@
   }
   .shot.ten{background-image:url('images/ten-thousand.jpg')}
   .shot.cs2{background-image:url('images/cs2board.jpg')}
+  .shot.transistor{background-image:url('images/transistor-simulation.jpg')}
   .project-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
   .project-head h3{
     font-family:'Orbitron',sans-serif;font-weight:900;font-size:28px;letter-spacing:.04em;
@@ -516,6 +523,7 @@
     .portrait{max-width:380px;margin:0 auto;width:100%}
     .specs{grid-template-columns:1fr;padding:16px 18px 60px}
     .projects-wrap{grid-template-columns:1fr;padding:16px 18px 60px}
+    .projects-wrap>.project:last-child:nth-child(odd){width:auto}
     .connect-wrap{grid-template-columns:1fr;padding:16px 18px 80px}
     .skills-grid{padding:16px 18px 60px}
     .section-head{padding:0 18px 14px}
@@ -646,6 +654,24 @@
           <span class="pill">TACTICS</span>
         </div>
         <a class="launch" href="https://danmckinnon.net/cs2board" target="_blank" rel="noopener">LAUNCH<span class="arrow">▶</span></a>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-card">
+        <div class="shot transistor" role="img" aria-label="Screenshot of the Transistor Playground"></div>
+        <div class="project-head">
+          <h3>Transistor Playground</h3>
+          <span class="chip live">● LIVE</span>
+        </div>
+        <p class="desc">An interactive n-channel MOSFET you can actually poke at. Drag geometry, doping and bias sliders and watch the device cross-section, the carriers, and the I&ndash;V curves respond with real device physics instead of hand-waving.</p>
+        <div class="feature-pills">
+          <span class="pill">SIMULATION</span>
+          <span class="pill">MOSFET</span>
+          <span class="pill">PHYSICS</span>
+          <span class="pill">INTERACTIVE</span>
+        </div>
+        <a class="launch" href="https://danmckinnon.net/TransistorSimulation" target="_blank" rel="noopener">LAUNCH<span class="arrow">▶</span></a>
       </div>
     </article>
 
